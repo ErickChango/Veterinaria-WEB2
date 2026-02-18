@@ -1,0 +1,60 @@
+<div class="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 font-sans">
+  
+  <div class="max-w-7xl mx-auto">
+    
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 mb-8 text-center">
+      <h2 class="text-3xl font-bold text-slate-800 mb-2">Consulta Veterinaria</h2>
+      <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full font-medium text-sm">
+        {{ mensajeActivo }}
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <div class="lg:col-span-1 space-y-4">
+        <h3 class="text-lg font-semibold text-slate-700 ml-1">Pacientes en Espera</h3>
+        
+        <div *ngFor="let paciente of pacientes" 
+             (click)="seleccionarPaciente(paciente)"
+             class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 cursor-pointer hover:border-indigo-500 hover:shadow-md transition-all duration-200 flex items-center gap-4 group"
+             [ngClass]="{'border-indigo-600 ring-1 ring-indigo-600': pacienteSeleccionado?.id === paciente.id}">
+          
+          <img [src]="paciente.imagen" class="w-12 h-12 rounded-full object-cover group-hover:scale-110 transition-transform">
+          <div>
+            <p class="font-bold text-slate-800">{{ paciente.nombre }}</p>
+            <p class="text-xs text-slate-500 uppercase tracking-wide">{{ paciente.especie }}</p>
+          </div>
+          <span class="ml-auto text-xs font-bold px-2 py-1 rounded bg-slate-100 text-slate-600"
+                [ngClass]="{
+                  'bg-red-100 text-red-700': paciente.prioridad === 'Alta',
+                  'bg-yellow-100 text-yellow-700': paciente.prioridad === 'Media',
+                  'bg-green-100 text-green-700': paciente.prioridad === 'Baja'
+                }">
+            {{ paciente.prioridad }}
+          </span>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2">
+        <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden min-h-[500px] flex flex-col justify-center items-center relative">
+          
+          <div *ngIf="!pacienteSeleccionado" class="text-center p-8">
+            <div class="text-6xl mb-4 opacity-20">🩺</div>
+            <p class="text-slate-400 text-lg">Selecciona un paciente de la lista para ver su ficha médica.</p>
+          </div>
+
+          <div *ngIf="pacienteSeleccionado" class="w-full h-full p-8">
+            
+            <app-detalle-mascota 
+              [mascota]="pacienteSeleccionado" 
+              (avisar)="procesarAviso($event)">
+            </app-detalle-mascota>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

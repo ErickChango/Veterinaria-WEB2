@@ -1,0 +1,63 @@
+@if (mascota) {
+  <div class="bg-white rounded-xl shadow-md overflow-hidden border border-slate-200 h-fit animate-fade-in-up">
+    
+    <div class="bg-slate-800 p-4 border-b border-slate-700">
+      <h3 class="text-white font-bold text-lg tracking-wide">Ficha Médica Detallada</h3>
+    </div>
+
+    <div class="p-6 space-y-6">
+      
+      <div class="flex items-center gap-5">
+        <img 
+          [src]="mascota.imagen" 
+          alt="Foto del Paciente" 
+          class="w-20 h-20 rounded-full object-cover border-4 border-slate-100 shadow-sm bg-slate-200">
+        
+        <div>
+          <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">
+            NOMBRE DEL PACIENTE
+          </p>
+          <h2 class="text-3xl font-extrabold text-slate-800 leading-none">
+            {{ mascota.nombre }}
+          </h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-lg border border-slate-100">
+        <div>
+          <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">
+            ID
+          </p>
+          <p class="text-lg font-bold text-slate-700">
+            #00{{ mascota.id }}
+          </p>
+        </div>
+        
+        <div>
+          <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">
+            ESPECIE
+          </p>
+          <p class="text-lg font-bold text-slate-700">
+            {{ mascota.especie }}
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-amber-50 p-4 rounded-lg border-l-4 border-amber-400 shadow-sm">
+        <h4 class="text-xs font-bold text-amber-700 uppercase tracking-widest mb-2 flex items-center gap-2">
+          HISTORIAL CLÍNICO
+        </h4>
+        <p class="text-slate-700 font-medium italic text-sm leading-relaxed">
+          {{ mascota.historial }}
+        </p>
+      </div>
+
+      <button
+        (click)="avisarIngreso()"
+        class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-4 px-6 rounded-lg shadow-lg shadow-slate-200 transition-all transform active:scale-95 text-center tracking-wide">
+        Llamar a Consulta
+      </button>
+
+    </div>
+  </div>
+}
